@@ -21,5 +21,20 @@ jobs:
           run: dotnet build --configuration Debug src/Presentation/Nop.Web/Nop.Web.csproj
         - name: test
           run: dotnet test src/Tests/Nop.Tests/Nop.Tests.csproj
+		- name:upload test result in trx
+		  run: dotnet test --logger:"trx;LogFilePrefix=testResults" src/Tests/Nop.Tests/Nop.Tests.csproj in
         - name: publish
           run: dotnet publish --configuration Release src/Presentation/Nop.Web/Nop.Web.csproj --output published
+		- name: Create zip
+          run: |
+          mkdir -p published
+          cp -r build/libs/* published/
+          zip -r published.zip published
+
+        - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: published.zip
+		
+		
