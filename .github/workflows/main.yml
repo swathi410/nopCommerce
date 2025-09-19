@@ -19,9 +19,9 @@ jobs:
           run: dotnet restore src/Presentation/Nop.Web/Nop.Web.csproj
         - name: build
           run: dotnet build --configuration Debug src/Presentation/Nop.Web/Nop.Web.csproj
-        - name: test
-          run: dotnet test src/Tests/Nop.Tests/Nop.Tests.csproj
-		- name:upload test result in trx
+        
+          
+		- name:upload test result 
 		  run: dotnet test --logger:"trx;LogFilePrefix=testResults" src/Tests/Nop.Tests/Nop.Tests.csproj in
         - name: publish
           run: dotnet publish --configuration Release src/Presentation/Nop.Web/Nop.Web.csproj --output published
